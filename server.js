@@ -12,32 +12,6 @@ const cors = require('cors')
 app.use(bodyParser.json());
 app.use(cors());
 
-// const messages = [
-//   {
-//     id: 1,
-//     author: 'Derf',
-//     content: 'Lets make Fresh-New-Text!',
-//     color: ''
-//   },
-//   {
-//     id: 2,
-//     author: 'Ferf',
-//     content: 'mmmmmm Ok!',
-//     color: 'success'
-//   },
-//   {
-//     id: 3,
-//     author: 'Ferg',
-//     content: 'I hate Yeezys',
-//     color: 'primary'
-//   },
-// ]
-
-// const currentMessages = [...messages]
-
-let currentId = 3;
-const genId = () => ++currentId;
-
 const colors = ['', 'dark', 'primary', 'info', 'success', 'warning', 'danger']
 
 const randomColor = () => {
@@ -49,11 +23,9 @@ app.get('/api/messages', (req, res) => {
   Message.find().then((messages) => {
     res.send(messages)
   })
-  console.log('Messages Sent or something part, dammit!!!!')
 })
 
 app.post('/api/messages', (req, res) => {
-
   let author = req.body.author;
   let content = req.body.content;
   let color = randomColor();
