@@ -1,28 +1,35 @@
+// Bring in our environment variables
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
+
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+const Message = require('./models/Message')
+
 app.use(bodyParser.json());
 
-const messages = [
-  {
-    id: 1,
-    author: 'Derf',
-    content: 'Lets make Fresh-New-Text!',
-    color: ''
-  },
-  {
-    id: 2,
-    author: 'Ferf',
-    content: 'mmmmmm Ok!',
-    color: 'success'
-  },
-  {
-    id: 3,
-    author: 'Ferg',
-    content: 'I hate Yeezys',
-    color: 'primary'
-  },
-]
+// const messages = [
+//   {
+//     id: 1,
+//     author: 'Derf',
+//     content: 'Lets make Fresh-New-Text!',
+//     color: ''
+//   },
+//   {
+//     id: 2,
+//     author: 'Ferf',
+//     content: 'mmmmmm Ok!',
+//     color: 'success'
+//   },
+//   {
+//     id: 3,
+//     author: 'Ferg',
+//     content: 'I hate Yeezys',
+//     color: 'primary'
+//   },
+// ]
 
 // const currentMessages = [...messages]
 
@@ -37,21 +44,21 @@ const randomColor = () => {
 
 app.get('/api/messages', (req, res) => {
   console.log('GET received')
-  res.send(messages)
+  Message.find().then((messages) => {
+    res.send(messages)
+  })
   console.log('Messages Sent or something part, dammit!!!!')
 })
 
 app.post('/api/messages', (req, res) => {
 
-  let id = genId();
   let author = req.body.author;
   let content = req.body.content;
   let color = randomColor();
-
-  messages.unshift({ id, author, content, color });
-    res.send(messages);
-    console.log('Messages Sent or something part, dammit!!!!')
+  Message.create({author, content, color}).then((message) => {
+    res.send(message)
   })
+})
 
 const PORT = process.env.PORT || 3000
 app.listen(PORT, () => console.log('Example app listening on port:', PORT,'!'))

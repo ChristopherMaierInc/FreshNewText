@@ -2,8 +2,9 @@ const mongoose = require('mongoose')
 
 // Use the promise functionality built into Node
 mongoose.Promise = global.Promise
-
+console.log(process.env.DB)
 mongoose.connect(process.env.DB, { useMongoClient: true })
+
   .then(() => {
     console.log('Successfully connected to database!')
   })
