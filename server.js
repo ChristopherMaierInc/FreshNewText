@@ -6,9 +6,11 @@ if (process.env.NODE_ENV !== 'production') {
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-const Message = require('./models/Message')
+const Message = require('./models/Message');
+const cors = require('cors')
 
 app.use(bodyParser.json());
+app.use(cors());
 
 // const messages = [
 //   {
