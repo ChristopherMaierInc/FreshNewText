@@ -42,7 +42,7 @@ app.get('/api/messages', (req, res) => {
 })
 
 app.post('/api/messages', (req, res) => {
-a
+
   let id = genId();
   let author = req.body.author;
   let content = req.body.content;
@@ -54,4 +54,4 @@ a
   })
 
 const PORT = process.env.PORT || 3000
-app.listen(3000, () => console.log('Example app listening on port:', PORT,'!'))
+app.listen(PORT, () => console.log('Example app listening on port:', PORT,'!'))
